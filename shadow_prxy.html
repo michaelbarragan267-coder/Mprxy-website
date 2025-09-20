@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Prxy - Mprxy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(180deg, #0a0a23 0%, #1b1b4d 100%);
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00d4ff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        li {
+            margin: 15px 0;
+        }
+        a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            color: #00d4ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+            }
+            to {
+                text-shadow: 0 0 20px #00d4ff, 0 0 30px #00d4ff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="stars"></canvas>
+    <div class="container">
+        <h1>Shadow Prxy</h1>
+        <ul>
+            <li><a href="http://maxgrammar.spm.my" target="_blank">maxgrammar.spm.my</a></li>
+            <li><a href="http://quickcalc.inpact.net" target="_blank">quickcalc.inpact.net</a></li>
+            <li><a href="http://ultrastats.comercialottoyferrat.cl" target="_blank">ultrastats.comercialottoyferrat.cl</a></li>
+        </ul>
+    </div>
+    <script>
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        for (let i = 0; i < 100; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2,
+                speed: Math.random() * 0.5 + 0.1
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffffff';
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+                star.y += star.speed;
+                if (star.y > canvas.height) star.y = 0;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
